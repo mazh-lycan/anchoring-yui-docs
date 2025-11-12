@@ -3,12 +3,12 @@ pragma solidity ^0.8.9;
 import "@hyperledger-labs/yui-ibc-solidity/contracts/proto/ProtoBufRuntime.sol";
 import "@hyperledger-labs/yui-ibc-solidity/contracts/proto/GoogleProtobufAny.sol";
 
-library MiniMessagePacketData {
+library IBCPacketData {
 
 
   //struct definition
   struct Data {
-    string message;
+    bytes message;
     bytes sender;
     bytes receiver;
   }
@@ -89,7 +89,7 @@ library MiniMessagePacketData {
     bytes memory bs,
     Data memory r
   ) internal pure returns (uint) {
-    (string memory x, uint256 sz) = ProtoBufRuntime._decode_string(p, bs);
+    (bytes memory x, uint256 sz) = ProtoBufRuntime._decode_bytes(p, bs);
     r.message = x;
     return sz;
   }
@@ -168,7 +168,7 @@ library MiniMessagePacketData {
       pointer,
       bs
     );
-    pointer += ProtoBufRuntime._encode_string(r.message, pointer, bs);
+    pointer += ProtoBufRuntime._encode_bytes(r.message, pointer, bs);
     }
     if (r.sender.length != 0) {
     pointer += ProtoBufRuntime._encode_key(
