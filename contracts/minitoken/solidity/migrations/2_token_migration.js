@@ -1,4 +1,5 @@
-const MiniToken = artifacts.require("MiniToken");
+const Anchoring = artifacts.require("Anchoring");
+const SCUseCase = artifacts.require("SCUseCase");
 const IBCClient = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCClient");
 const IBCConnection = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCConnection");
 const IBCChannelHandshake = artifacts.require("@hyperledger-labs/yui-ibc-solidity/IBCChannelHandshake");
@@ -20,7 +21,8 @@ const deployCore = async (deployer) => {
 };
 
 const deployApp = async (deployer) => {
-  await deployer.deploy(MiniToken, IBCHandler.address);
+  await deployer.deploy(Anchoring, IBCHandler.address);
+  await deployer.deploy(SCUseCase, Anchoring.address);
 };
 
 const init = async (deployer) => {
