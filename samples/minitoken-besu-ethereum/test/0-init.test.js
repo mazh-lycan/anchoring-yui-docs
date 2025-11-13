@@ -1,10 +1,10 @@
-const MiniToken = artifacts.require("MiniToken");
+const SCUseCase = artifacts.require("MiniToken");
 
-contract("MiniToken", (accounts) => {
-  it("should put 100 MiniToken in Alice account on ibc0", () =>
-    MiniToken.deployed()
-      .then((instance) => instance.balanceOf(accounts[1]))
-      .then((balance) => {
-        assert.equal(balance.valueOf(), 100, "100 wasn't in Alice account");
+contract("SCUseCase", (accounts) => {
+  it("should have set holder n hash", () =>
+    SCUseCase.deployed()
+      .then((instance) => instance.getHash(accounts[1]))
+      .then((hash) => {
+        assert.equal(hash.valueOf(), "0xe31822911e580b5ff47d83bebb177a69a78e076baad60a15aac6d4bbb904afc2", "hash was not set correctly");
       }));
 });
