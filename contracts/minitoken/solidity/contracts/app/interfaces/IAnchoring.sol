@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 interface IAnchoring{
 
     /// @dev Emit when data is sent to anchor on blockchain B
-    /// @param from The address of who wants to anchor the information on Blockchain A (useful for when k1-r1)
-    /// @param to The address of who wants to anchor the information on Blockchain B (useful for when k1- r1)
+    /// @param from The address of the Smart Contract to be anchored
+    /// @param to The address of who wants to anchor the information
     /// @param sourcePort Port of IBC used in communication through relayer
     /// @param sourceChannel Channel of IBC used in communication through relayer
     /// @param timeoutHeight Timeout height used in communication through relayer
@@ -27,7 +27,7 @@ interface IAnchoring{
 
     /// @dev Function that sends through the IBC the information to anchor
     /// @param toanchor Information sent to be anchored on Blockchain B 
-    /// @param receiver The address of who wants to anchor the information on Blockchain B (useful for when k1- r1)
+    /// @param receiver The address of who wants to anchor the information
     /// @param sourcePort Port of IBC used in communication through relayer
     /// @param sourceChannel Channel of IBC used in communication through relayer
     /// @param timeoutHeight Timeout height used in communication through relayer
@@ -38,17 +38,6 @@ interface IAnchoring{
         string calldata sourceChannel,
         uint64 timeoutHeight
     ) external;
-
-
-    /// @dev Function that receives on the anchoring blockchain (Blockchain B) the information to anchor, and unpacks it
-    /// @param packet The information to anchor, packed
-    /// @param address DEPRECATED address on-chain IBC component
-    function onRecvPacket(Packet.Data calldata packet, address relayer)
-        external
-        virtual
-        override
-        onlyIBC
-        returns (bytes memory acknowledgement)
 
 
 }
