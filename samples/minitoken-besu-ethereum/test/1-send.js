@@ -1,4 +1,4 @@
-const MiniToken = artifacts.require("MiniToken");
+const SCUseCase = artifacts.require("SCUseCase");
 
 module.exports = async (callback) => {
   const accounts = await web3.eth.getAccounts();
@@ -10,12 +10,19 @@ module.exports = async (callback) => {
   const channel = "channel-0";
   const timeoutHeight = 10000000;
 
-  const miniToken = await MiniToken.deployed();
-  const result = await miniToken.sendTransfer(sendAmount, bob, port, channel, timeoutHeight, {
+  const scusecase = await SCUseCase.deployed();
+
+
+  await scusecase.setCommParams(port, channel, timeoutHeight, {from: alice,
+  });
+
+  const anchored = await scusecase.anchorPair(alice, {
     from: alice,
   });
-  console.log(result)
-  const sendTransfer = await miniToken.getPastEvents("SendTransfer", {
+  console.log(anchored)
+
+
+  const sendTransfer = await scusecase.getPastEvents("AnchorInfo", {
     fromBlock: 0,
   });
   console.log(sendTransfer);
