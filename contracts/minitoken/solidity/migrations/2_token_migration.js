@@ -29,7 +29,7 @@ const init = async (deployer) => {
   const ibcHandler = await IBCHandler.deployed();
 
   for(const promise of [
-    () => ibcHandler.bindPort(PortTransfer, MiniToken.address),
+    () => ibcHandler.bindPort(PortTransfer, Anchoring.address),
     () => ibcHandler.registerClient(MockClientType, MockClient.address),
   ]) {
     const result = await promise();

@@ -1,4 +1,4 @@
-const SCUseCase = artifacts.require("MiniToken");
+const SCUseCase = artifacts.require("SCUseCase");
 
 contract("SCUseCase", (accounts) => {
   it("should have set holder n hash", () =>
